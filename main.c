@@ -6,7 +6,7 @@
 /*   By: nilamber <nilamber@student.42nice.f>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:39:35 by nilamber          #+#    #+#             */
-/*   Updated: 2024/05/30 17:58:12 by nilamber         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:01:39 by nilamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	main(void)
 {
-	int	i;
-	int	hex;
+	size_t	i;
+	int		d;
 
-	hex = -9;
-	i = ft_printf("ft_printf = %x", hex);
-	ft_printf("\tft_printf = %d\n\n", i);
-	i = printf("printf = %x\t", hex);
-	printf("printf = %d\n", i);
+	d = 100000;
+	i = printf("printf = %d\t", d);
+	printf("printf = %zu\n", i);
+	i = ft_printf("ft_printf = %d", d);
+	printf("\tft_printf = %zu\n\n", i);
 }

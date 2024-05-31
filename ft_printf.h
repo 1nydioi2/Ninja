@@ -6,7 +6,7 @@
 /*   By: nilamber <nilamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:37:51 by nilamber          #+#    #+#             */
-/*   Updated: 2024/05/24 20:56:16 by nilamber         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:15:07 by nilamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <limits.h>
 
 int		ft_printf(const char *str, ...);
 int		ft_dui(va_list arg_v);
@@ -26,4 +27,7 @@ int		ft_arg_redirector(const char c, va_list arg_v);
 int		ft_arg_count(const char *str);
 int		ft_deci_count(long long num);
 int		ft_putnbr_hx(unsigned long num, int m);
+int		ft_putstr(char *str);
+void	*ft_calloc(size_t nitems, size_t size);
+
 #endif
