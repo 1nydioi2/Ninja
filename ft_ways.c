@@ -6,7 +6,7 @@
 /*   By: nilamber <nilamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 02:08:32 by nilamber          #+#    #+#             */
-/*   Updated: 2024/05/31 21:17:01 by nilamber         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:39:38 by nilamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_dui(va_list arg_v)
 	int			count_w;
 	long int	num;
 	int			power[2];
-	char		*str;
+	char		str[32];
 	int			i;
 
 	i = 0;
@@ -27,7 +27,7 @@ int	ft_dui(va_list arg_v)
 		count_w = write(1, "-", 1);
 		num = -num;
 	}
-	str = ft_calloc(ft_deci_count(num), sizeof(char));
+	ft_bzero(str, 32);
 	while (num > 9)
 	{
 		power[0] = ft_deci_count(num);
@@ -39,7 +39,7 @@ int	ft_dui(va_list arg_v)
 	}
 	str[i++] = (num + 48);
 	count_w += ft_putstr(str);
-	return (free(str), count_w);
+	return (count_w);
 }
 
 int	ft_hex(va_list arg_v, const char c)

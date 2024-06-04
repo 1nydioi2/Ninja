@@ -6,7 +6,7 @@
 /*   By: nilamber <nilamber@student.42nice.f>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 21:10:42 by nilamber          #+#    #+#             */
-/*   Updated: 2024/05/31 21:18:54 by nilamber         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:46:35 by nilamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	ft_putstr(char *str)
 	while (str[i])
 		i++;
 	while (--i > -1)
-		ret += write(1, str++, 1);
+		ret += write(1, &str[i], 1);
 	return (ret);
 }

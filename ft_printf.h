@@ -6,7 +6,7 @@
 /*   By: nilamber <nilamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:37:51 by nilamber          #+#    #+#             */
-/*   Updated: 2024/05/31 21:15:07 by nilamber         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:44:01 by nilamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		ft_arg_count(const char *str);
 int		ft_deci_count(long long num);
 int		ft_putnbr_hx(unsigned long num, int m);
 int		ft_putstr(char *str);
-void	*ft_calloc(size_t nitems, size_t size);
+void	ft_bzero(void *str, size_t l);
 
 #endif
