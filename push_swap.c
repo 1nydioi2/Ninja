@@ -6,7 +6,7 @@
 /*   By: nilamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:24:14 by nilamber          #+#    #+#             */
-/*   Updated: 2024/09/03 16:32:38 by nilamber         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:18:02 by nilamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	parse(int c, char **v)
 		{
 			if ((v[i][j] < '0' || v[i][j] > '9')
 				&& ((v[i][j] != 32 && (v[i][j] < 9 || v[i][j] > 13))
-					&& ((v[i][j] != '-') || (v[i][j] == '-'
-						&& (((v[i][j + 1]) > '9' || (v[i][j + 1])
-							< '0') || (j != 0 && ((v[i][j - 1]) != 32
-								|| (v[i][j - 1] < 9 || (v[i][j - 1])
-									> 13))))))))
+					&& (v[i][j] != '-' || (v[i][j] == '-' 
+						&& (((v[i][j + 1] > '9' || v[i][j + 1] < '0')
+							|| (j != 0 && (v[i][j - 1] != 32
+								&& (v[i][j - 1] < 9 
+									|| v[i][j - 1] > 13)))))))))
 				return (1);
 			j++;
 		}
@@ -56,15 +56,14 @@ int count(int c, char **v)
 			while (v[i][j] >= '0' && v[i][j] <= '9')
 				j++;
 			j += (v[i][j] != 0);
-			printf("res = %d\n", res);
 		}
 		i++;
 	}
-	printf("res = %d\n", res);
+	printf("(count)res = %d\n", res);
 	return (res);
 }
 
-int	fatoi (char *str, int status)
+int	fatoi (char *str, int *status)
 {
 	int	res;
 	int	sign;
@@ -80,7 +79,7 @@ int	fatoi (char *str, int status)
 		if (in > 10 || ((in == 9 && res > 24748364) || (in == 10
 				&& ((sign > 0 && *str > '7') || (sign < 0 && *str > '8')))))
 		{
-			status = 1;
+			*status = 1;
 			return (res);
 		}
 		res += (*str - '0');
@@ -92,7 +91,7 @@ int	fatoi (char *str, int status)
 	return (res);
 }
 
-int	*stock(char **v, int count, int c, int status)
+int	*stock(char **v, int count, int c, int *status)
 {
 	int	i;
 	int	k[2];
@@ -110,7 +109,7 @@ int	*stock(char **v, int count, int c, int status)
 		{
 			if (res == list[k[1]++] || status)
 			{
-				status = 1;
+				*status = 1;
 				return (list);
 			}
 		}
@@ -125,25 +124,26 @@ int	*stock(char **v, int count, int c, int status)
 
 int	main(int c, char **v)
 {
-	int	*lst;
+	int	*tab;
+	int	*st;
 	int status;
 	int	i = -1;
 
 	status = 0;
+	st = &status;
 	if (c == 1)
 		return (0);
 	if (c < 2)
 		return (write(1, "Error1\n", 7));
 	if (parse(c, v))
 		return (write(1, "Error2\n", 7));
-	lst = stock(v, count(c, v), c, status);
+	tab = stock(v, count(c, v), c, st);
 	if (status == 1)
 	{
-		free(lst);
+		free(tab);
 		return (write(1, "Error3\n", 7));
 	}
-	printf("%d\n", count(c, v));
 	while (i++ < count(c, v))
-		printf("lst[%d] = %d\n", i, lst[i]);
-	free(lst);
+		printf("tab[%d] = %d\n", i, tab[i]);
+	free(tab);
 }
