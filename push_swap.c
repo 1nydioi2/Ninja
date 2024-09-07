@@ -24,12 +24,12 @@ int	parse(int c, char **v)
 		while (v[i][j])
 		{
 			if ((v[i][j] < '0' || v[i][j] > '9')
-				&& ((v[i][j] != 32 && (v[i][j] < 9 || v[i][j] > 13))
+				&& (v[i][j] != 32 && (v[i][j] < 9 || v[i][j] > 13))
 					&& (v[i][j] != '-' || (v[i][j] == '-' 
 						&& (((v[i][j + 1] > '9' || v[i][j + 1] < '0')
 							|| (j != 0 && (v[i][j - 1] != 32
 								&& (v[i][j - 1] < 9 
-									|| v[i][j - 1] > 13)))))))))
+									|| v[i][j - 1] > 13))))))))
 				return (1);
 			j++;
 		}
@@ -72,20 +72,26 @@ int	fatoi (char *str, int *status)
 	in = 0;
 	res = 0;
 	sign = 1;
+	while (*str != '-' && (*str < '0' || *str > '9'))
+		str++;
+	printf("(fatoi) str = \"%s\"\n", str);
 	if (*str == '-')
-		sign = -1;
-	while (*str >= '0' && *str <= '9')
 	{
-		if (in > 10 || ((in == 9 && res > 24748364) || (in == 10
-				&& ((sign > 0 && *str > '7') || (sign < 0 && *str > '8')))))
+		str++;
+		sign = -1;
+	}
+	while ((*str && str) && (*str >= '0' && *str <= '9'))
+	{
+		if (in > 9 || ((in == 9 && res > 214748364) || (in == 9 && ((sign > 0 && *str > '7') || (sign < 0 && *str > '8')))))
 		{
 			*status = 1;
 			return (res);
 		}
-		res += (*str - '0');
 		res *= 10;
+		res += (*str - '0');
 		in++;
 		str++;
+		printf("(fatoi) str = \"%s\", in = '%d', res = '%d'\n", str, in, res);
 	}
 	res *= sign;
 	return (res);
@@ -96,7 +102,7 @@ int	*stock(char **v, int count, int c, int *status)
 	int	i;
 	int	k[2];
 	int	*list;
-	int res;
+	int 	res;
 	
 	list = malloc(sizeof(int) * count);
 	i = 1;
@@ -107,8 +113,9 @@ int	*stock(char **v, int count, int c, int *status)
 		res = fatoi(v[i], status);
 		while (k[1] < *k)
 		{
-			if (res == list[k[1]++] || status)
+			if (res == list[k[1]++] || *status)
 			{
+				printf("\n\n");
 				*status = 1;
 				return (list);
 			}
@@ -119,6 +126,7 @@ int	*stock(char **v, int count, int c, int *status)
 		if (!*v[i])
 			i++;
 	}
+	printf("\n\n");
 	return (list);
 }
 
@@ -126,7 +134,8 @@ int	main(int c, char **v)
 {
 	int	*tab;
 	int	*st;
-	int status;
+	int 	status;
+	int	couint;
 	int	i = -1;
 
 	status = 0;
@@ -134,16 +143,17 @@ int	main(int c, char **v)
 	if (c == 1)
 		return (0);
 	if (c < 2)
-		return (write(1, "Error1\n", 7));
+		return (write(1, "Error1a\n", 8));
 	if (parse(c, v))
-		return (write(1, "Error2\n", 7));
-	tab = stock(v, count(c, v), c, st);
+		return (write(1, "Error2p\n", 8));
+	couint = count(c, v);
+	tab = stock(v, couint, c, st);
 	if (status == 1)
 	{
 		free(tab);
-		return (write(1, "Error3\n", 7));
+		return (write(1, "Error3d\n", 8));
 	}
-	while (i++ < count(c, v))
+	while (++i < couint)
 		printf("tab[%d] = %d\n", i, tab[i]);
 	free(tab);
 }
