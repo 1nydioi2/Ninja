@@ -1,20 +1,11 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nilamber <nilamber@student.42nice.f>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/23 17:05:04 by nilamber          #+#    #+#              #
-#    Updated: 2024/05/30 17:20:32 by nilamber         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = push_swap
 
-NAME = libftprintf.a
-
-SOURCES = ft_printf.c \
-	  ft_ways.c \
-	  ft_strlen.c \
+SOURCES = ft_radix.c \
+	  ft_utils.c \
+	  ft_utils_v2.c \
+	  push_swap.c \
+	  instructions.c \
+	  ft_bb.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -38,4 +29,4 @@ clean:
 
 re: fclean all
 
-.PHONY: fclean all clean re ninjad rninja ninjax
+.PHONY: fclean all clean re
